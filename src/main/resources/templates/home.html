@@ -6,5 +6,24 @@
 </head>
 <body>
     <div th:replace="~{/layout/header :: fragment-navbar}"></div>
+    <table class="table" >
+        <thead>
+            <tr>
+                <th scope="col">글 제목</th>
+                <th scope="col">글쓴이</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider" th:each="question , index : ${questions}" >
+            <tr th:object="${question}">
+                <th scope="row" th:text="${index.index}">1</th>
+                <td th:field="*{subject}" th:text="*{subject}">Mark</td>
+                <td th:field="*{username}" th:text="*{username}">Mark</td>
+                <td th:field="*{content}" th:text="*{content}">Mark</td>
+            </tr>
+
+        </tbody>
+    </table>
 </body>
 </html>
