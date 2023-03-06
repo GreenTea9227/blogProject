@@ -1,9 +1,6 @@
 package project.blog.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class WriteFormData {
     @NotEmpty(message = "이름은 필수입니다.")
     private String username;
@@ -19,4 +17,5 @@ public class WriteFormData {
     private String content;
     @NotEmpty(message = "제목은 필수입니다.")
     private String subject;
+
 }

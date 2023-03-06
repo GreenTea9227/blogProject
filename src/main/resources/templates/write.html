@@ -7,8 +7,8 @@
 <body>
 <div th:replace="~{/layout/header :: fragment-navbar}"></div>
 
-<fieldset>
-    <form  class="ms-5 mt-5 col-sm border w-25 p-3" action="/write" method="post" th:object="${writeFormData}">
+<fieldset class="justify-content-center">
+    <form  class="ms-5 mt-5 col-sm border w-25 p-3 justify-content-center" action="/write" method="post" th:object="${writeFormData}">
         <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
     <div class="mb-3 ">
         <label for="subject" class="form-label" >Example label</label>
