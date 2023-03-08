@@ -6,37 +6,46 @@
 </head>
 <body>
 <div th:replace="~{/layout/header :: fragment-navbar}"></div>
-
-<fieldset class="justify-content-center">
-    <form  class="ms-5 mt-5 col-sm border w-25 p-3 justify-content-center" action="/write" method="post" th:object="${writeFormData}">
+<form class="ms-5 mt-5 col-sm border w-25 p-3 justify-content-center" action="/write" method="post"
+      th:object="${writeFormData}">
+    <fieldset class="justify-content-center" >
+        <legend>글쓰기</legend>
         <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-    <div class="mb-3 ">
-        <label for="subject" class="form-label" >Example label</label>
-        <input th:field="*{subject}" class="form-control"  placeholder="제목을 입력하시오">
-        <div class="border-warning" th:errors="*{subject}">
-            제목 오류
+        <div class="mb-3 ">
+            <label for="subject" class="form-label">제목</label>
+            <input th:field="*{subject}" class="form-control" placeholder="제목을 입력하시오">
+            <div class="border-warning" th:errors="*{subject}">
+                제목 오류
+            </div>
+
+            <div class="mb-3 ">
+                <label for="tag" class="form-label">태그</label>
+                <input th:field="*{tag}" class="form-control" placeholder="태그">
+                <div class="border-warning" th:errors="*{tag}">
+                    태그 오류
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 ">
+            <label for="username" class="form-label">이름</label>
+            <input th:field="*{username}" class="form-control" placeholder="이름을 입력하시오">
+            <div class="border-warning" th:errors="*{username}">
+                이름 오류
+            </div>
+        </div>
+        <div class="mb-3 ">
+            <label for="content" class="form-label">내용</label>
+            <textarea th:field="*{content}" class="form-control" placeholder="내용을 입력하시오">
+        </textarea>
+            <div class="border-warning" th:errors="*{content}">
+                내용 오류
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
 
-    </div>
-    <div class="mb-3 ">
-        <label for="username" class="form-label">Another label</label>
-        <input th:field="*{username}" class="form-control"  placeholder="이름을 입력하시오">
-        <div class="border-warning" th:errors="*{username}">
-            이름 오류
-        </div>
-    </div>
-    <div class="mb-3 ">
-        <label for="content" class="form-label">Another label</label>
-        <textarea th:field="*{content}" class="form-control"  placeholder="내용을 입력하시오">
-        </textarea>
-        <div class="border-warning" th:errors="*{content}">
-            내용 오류
-        </div>
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-    </form>
-</fieldset>
+    </fieldset>
+</form>
 </body>
 </html>

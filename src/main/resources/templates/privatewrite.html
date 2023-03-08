@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/head :: fragment-head}">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:replace="~{/layout/header :: fragment-navbar}"></div>
+
+<table>
+  <thead>
+    <th>num</th>
+    <th>subject</th>
+    <th>username</th>
+    <th>content</th>
+  </thead>
+  <tbody th:each="question , loop: ${data}">
+    <tr>
+      <td th:text="${loop.index+1}"></td>
+      <td th:text="${question.subject}"></td>
+      <td th:text="${question.username}"></td>
+      <td th:text="${question.content}"></td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+</body>
+</html>
