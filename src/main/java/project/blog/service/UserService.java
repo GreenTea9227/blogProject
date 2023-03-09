@@ -19,5 +19,4 @@ public class UserService {
     public List<Question> findPrivateQuestion(Long id) {
         return userRepository.findByUserid(id);
     }
-
 }

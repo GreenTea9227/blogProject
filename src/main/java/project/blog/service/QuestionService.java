@@ -19,8 +19,8 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     public void createQuestion(WriteFormData writeFormData) {
-        Question question = new Question(writeFormData.getUsername(),writeFormData.getContent()
-                ,writeFormData.getSubject());
+        Question question = new Question(writeFormData.getUsername(), writeFormData.getContent()
+                , writeFormData.getSubject());
 
         questionRepository.save(question);
     }
@@ -32,7 +32,4 @@ public class QuestionService {
     public Page<Question> findPage(PageRequest pageRequest) {
         return questionRepository.findAll(pageRequest);
     }
-
-
-
 }

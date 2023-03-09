@@ -10,7 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     private String username;
 
@@ -22,12 +23,15 @@ public class Question {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public void addUser(User user) {
+        this.user = user;
+    }
 
+    @Builder
     public Question(String username, String content, String subject) {
         this.username = username;
         this.content = content;
         this.subject = subject;
-        user.getQuestions().add(this);
     }
 
     @Builder
@@ -36,7 +40,6 @@ public class Question {
         this.content = content;
         this.subject = subject;
         this.tag = tag;
-        user.getQuestions().add(this);
     }
 
     private void addQuestion() {

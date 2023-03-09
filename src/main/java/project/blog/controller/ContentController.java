@@ -15,7 +15,6 @@ import project.blog.service.QuestionService;
 import project.blog.service.UserService;
 import project.blog.vo.Question;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,8 +26,8 @@ public class ContentController {
     private final UserService userService;
 
     @GetMapping("/write")
-    public String write( Model model) {
-        model.addAttribute("writeFormData",new WriteFormData());
+    public String write(Model model) {
+        model.addAttribute("writeFormData", new WriteFormData());
         return "write";
     }
 
@@ -36,7 +35,7 @@ public class ContentController {
     public String postWrite(@Valid @ModelAttribute WriteFormData writeFormData, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            bindingResult.reject("global error","global error 발생");
+            bindingResult.reject("global error", "global error 발생");
             return "write";
         }
         questionService.createQuestion(writeFormData);
@@ -48,9 +47,7 @@ public class ContentController {
     public String privateWrite(Model model, @PathVariable Long userId) {
         List<Question> privateQuestion = userService.findPrivateQuestion(userId);
         List<ReturnQuestionData> data = PrivateQuestionList.createPrivateQuestion(privateQuestion);
-        model.addAttribute("data",data);
+        model.addAttribute("data", data);
         return "privatewrite";
     }
-
-
 }
