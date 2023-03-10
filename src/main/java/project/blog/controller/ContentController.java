@@ -43,11 +43,5 @@ public class ContentController {
         return "redirect:/";
     }
 
-    @GetMapping("/privateWrite/{userId}")
-    public String privateWrite(Model model, @PathVariable Long userId) {
-        List<Question> privateQuestion = userService.findPrivateQuestion(userId);
-        List<ReturnQuestionData> data = PrivateQuestionList.createPrivateQuestion(privateQuestion);
-        model.addAttribute("data", data);
-        return "privatewrite";
-    }
+
 }
