@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-  <script>
-
-  </script>
 </head>
 <body>
 <div th:replace="~{/layout/header :: fragment-navbar}"></div>
+
+<form action="/vlog" class="input-group mb-3" method="post">
+    <input name="param" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">검색하기</button>
+</form>
 <table class="table" >
     <thead>
     <tr>
+        <th scope="col">번호</th>
         <th scope="col">글 제목</th>
         <th scope="col">글쓴이</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">내용</th>
     </tr>
     </thead>
     <tbody class="table-group-divider" th:each="question , index : ${paging}" >

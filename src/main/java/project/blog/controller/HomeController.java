@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.blog.service.QuestionService;
 import project.blog.vo.Question;
@@ -32,6 +33,17 @@ public class HomeController {
         List<Question> questions = questionService.findAll();
         model.addAttribute("paging", paging);
         model.addAttribute("questions", questions);
+        return "vlog";
+    }
+
+    @PostMapping("/vlog")
+    public String vlogWithSearch(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam String param, Model model) {
+
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        Page<Question> paging = questionService.findByParam(param, pageRequest);
+        model.addAttribute("paging", paging);
+
         return "vlog";
     }
 }

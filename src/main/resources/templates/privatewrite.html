@@ -7,12 +7,15 @@
 <body>
 <div th:replace="~{/layout/header :: fragment-navbar}"></div>
 
-<table>
+<table class="table">
   <thead>
-    <th>num</th>
-    <th>subject</th>
-    <th>username</th>
-    <th>content</th>
+  <tr>
+    <th scope="col">num</th>
+    <th scope="col">subject</th>
+    <th scope="col">username</th>
+    <th scope="col">content</th>
+  </tr>
+
   </thead>
   <tbody th:each="question , loop: ${data}">
     <tr>
@@ -20,6 +23,8 @@
       <td th:text="${question.subject}"></td>
       <td th:text="${question.username}"></td>
       <td th:text="${question.content}"></td>
+      <td><a th:href="@{/privateWrite/update(questionId=${question.getId()})}" class="btn btn-primary">수정</a></td>
+      <td><a th:href="@{/privateWrite/delete(questionId=${question.getId()})}" class="btn btn-danger">제거</a></td>
     </tr>
 
 

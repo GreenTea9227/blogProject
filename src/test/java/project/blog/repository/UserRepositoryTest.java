@@ -8,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import project.blog.vo.User;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -36,13 +39,19 @@ class UserRepositoryTest {
         User user = findUser.orElseThrow(() -> {
             throw new RuntimeException("No");
         });
-        Assertions.assertThat(user.getEmail()).isEqualTo("1hello@naver.com");
-        Assertions.assertThat(user.getPassword()).isEqualTo("1111");
-        Assertions.assertThat(user.getUsername()).isEqualTo("yohan_1");
+        assertThat(user.getEmail()).isEqualTo("1hello@naver.com");
+        assertThat(user.getPassword()).isEqualTo("1111");
+        assertThat(user.getUsername()).isEqualTo("yohan_1");
     }
 
     @Test
-    void findQuestion() {
+    void userDateTest() {
+        User save = userRepository.save(User.builder().build());
+        LocalDateTime now = LocalDateTime.now();
 
+        Optional<User> findUser = userRepository.findById(save.getId());
+
+        User user = findUser.orElseGet(User::new);
+        assertThat(user.getCreatedDate()).isBefore(now);
     }
 }

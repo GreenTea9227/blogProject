@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue
@@ -30,5 +30,10 @@ public class User {
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+    }
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+        question.addUser(this);
     }
 }

@@ -32,4 +32,8 @@ public class QuestionService {
     public Page<Question> findPage(PageRequest pageRequest) {
         return questionRepository.findAll(pageRequest);
     }
+
+    public Page<Question> findByParam(String param, PageRequest pageRequest) {
+        return questionRepository.findByParamNameLike(param, pageRequest);
+    }
 }
