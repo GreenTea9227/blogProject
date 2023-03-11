@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.blog.dto.PrivateQuestionList;
 import project.blog.dto.ReturnQuestionData;
+import project.blog.dto.UpdateFormData;
 import project.blog.dto.WriteFormData;
 import project.blog.service.QuestionService;
 import project.blog.service.UserService;
@@ -42,14 +43,21 @@ public class PrivateOwnerController {
     }
 
     @PostMapping("/privateWrite/update/{questionId}")
-    public String privateUpdatePost(@Valid @ModelAttribute WriteFormData writeFormData
+    public String privateUpdatePost(@Valid @ModelAttribute UpdateFormData updateFormData
             , BindingResult bindingResult,@PathVariable Long questionId ,RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "private/privateUpdate";
         }
-        questionService.update(questionId,writeFormData);
+        questionService.update(questionId,updateFormData);
         redirectAttributes.addAttribute("questionId",questionId);
         return "redirect:/privateWrite/update/{questionId}";
+    }
+
+    @PostMapping("/privateWrite/delete/{questionId}")
+    public String privateDelete(@PathVariable Long questionId) {
+        questionService.removeQuestion(questionId);
+        //TODO - userid세션에 저장하기
+        return "redirect:/privateWrite/{userId}";
     }
 
 

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select u.questions from User u where u.id = :userid")
-    List<Question> findByUserid(@Param("userid") Long userid);
+    @Query("select  distinct u from User u join fetch u.questions where u.id = :userid")
+    User findQuestionsWithId(@Param("userid") Long userid);
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blog.repository.UserRepository;
 import project.blog.vo.Question;
+import project.blog.vo.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -17,6 +19,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<Question> findPrivateQuestion(Long id) {
-        return userRepository.findByUserid(id);
+
+        User user = userRepository.findQuestionsWithId(id);
+        return user.getQuestions();
     }
 }
