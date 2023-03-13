@@ -7,9 +7,14 @@ import project.blog.vo.Question;
 import project.blog.vo.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select u.questions from User u where u.id = :userid")
-    List<Question> findByUserid(@Param("userid") Long userid);
+    @Query("select  distinct u from User u join fetch u.questions where u.id = :userid")
+    User findQuestionsWithId(@Param("userid") Long userid);
+
+    Optional<User> findByNickname(String nickname);
+
+    Optional<User> findByEmail(String email);
 }

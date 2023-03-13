@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/head :: fragment-head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{/layout/header :: fragment-navbar}"></div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">num</th>
+        <th scope="col">subject</th>
+        <th scope="col">username</th>
+        <th scope="col">content</th>
+    </tr>
+
+    </thead>
+    <tbody th:each="question , loop: ${data}">
+    <tr>
+        <td th:text="${loop.index+1}"></td>
+        <td th:text="${question.subject}"></td>
+        <td th:text="${question.username}"></td>
+        <td th:text="${question.content}"></td>
+        <td><a th:href="@{/privateWrite/update(questionId=${question.getId()})}" class="btn btn-primary">수정</a></td>
+        <td><a th:href="@{/privateWrite/delete(questionId=${question.getId()})}" class="btn btn-danger">제거</a></td>
+        <td><a th:value="${question.id}" class="btn btn-danger delete-question">제거</a></td>
+    </tr>
+
+
+    </tbody>
+</table>
+
+<script>
+    const submitForm = document.querySelector(".delete-question");
+    const questionId = submitForm.value;
+    submitForm.addEventListener("click", cancel(questionId))
+
+    function cancel(id) {
+        const pr = prompt(`${id}의 값을 삭제 하시겠습니까?`);
+        if (!pr) {
+            return;
+        }
+        let form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/privateWrite/delete/" + id);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>

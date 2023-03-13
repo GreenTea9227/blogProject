@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(indexes = @Index(name = "email",columnList = "email"))
 public class User extends BaseTime {
 
     @Id

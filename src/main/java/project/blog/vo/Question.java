@@ -1,6 +1,8 @@
 package project.blog.vo;
 
 import lombok.*;
+import project.blog.dto.UpdateFormData;
+import project.blog.dto.WriteFormData;
 
 import javax.persistence.*;
 
@@ -44,5 +46,12 @@ public class Question extends BaseTime {
 
     private void addQuestion() {
         user.getQuestions().add(this);
+    }
+
+    public void update(UpdateFormData updateFormData) {
+        this.username = updateFormData.getUsername();
+        this.content = updateFormData.getContent();
+        this.tag = updateFormData.getTag();
+        this.subject = updateFormData.getSubject();
     }
 }

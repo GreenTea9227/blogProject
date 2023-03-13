@@ -12,5 +12,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findAll(Pageable pageable);
 
     @Query("select q from Question q where q.subject like %:param%")
-    Page<Question> findByParamNameLike(@Param(value = "param") String param, Pageable pageable);
+    Page<Question> findByParamNameLike(@Param(value = "param") String param, Pageable pageable); //변경
+
+    Page<Question> findBySubjectContaining(String subject,Pageable pageable);
 }
