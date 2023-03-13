@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/head :: fragment-head}">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form action="/join" class="flex w-25 justify-content-center border-2 border-primary mt-10 my-auto mx-auto" method="post" th:object="${formUser}">
+    <fieldset>
+      <legend>회원가입</legend>
+      <div th:each="err : ${#fields.globalErrors()}" class="text-danger" th:text="${err}"></div>
+      <label for="username">이름</label>
+      <input class="form-control" id="username"  th:field="*{username}" type="text" placeholder="NICKNAME" aria-label="default input example">
+      <label for="password">비밀번호 입력</label>
+      <input class="form-control"  id="password" th:field="*{password}" type="password" placeholder="PASSWORD" aria-label="default input example">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1"  class="form-label">Email address</label>
+        <input type="email" class="form-control" th:field="*{email}" id="exampleFormControlInput1" placeholder="name@example.com">
+      </div>
+      <label for="nickname">닉네임 설정</label>
+      <input class="form-control" id="nickname"  th:field="*{nickname}" type="text" placeholder="NICKNAME" aria-label="default input example">
+      <button type="submit" class="btn btn-primary mt-5">가입하기</button>
+    </fieldset>
+  </form>
+</body>
+</html>
