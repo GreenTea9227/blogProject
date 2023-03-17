@@ -6,17 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import project.blog.dto.PrivateQuestionList;
-import project.blog.dto.ReturnQuestionData;
-import project.blog.dto.WriteFormData;
+import project.blog.dto.forquestion.WriteFormData;
 import project.blog.service.QuestionService;
 import project.blog.service.UserService;
-import project.blog.vo.Question;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,6 +37,4 @@ public class ContentController {
 
         return "redirect:/";
     }
-
-
 }

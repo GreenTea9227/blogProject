@@ -1,4 +1,4 @@
-package project.blog.dto;
+package project.blog.dto.forquestion;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;

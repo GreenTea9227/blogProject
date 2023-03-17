@@ -1,4 +1,4 @@
-package project.blog.dto;
+package project.blog.dto.forquestion;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blog.dto.UpdateFormData;
-import project.blog.dto.WriteFormData;
+import project.blog.dto.forquestion.UpdateFormData;
+import project.blog.dto.forquestion.WriteFormData;
 import project.blog.repository.QuestionRepository;
 import project.blog.vo.Question;
 
@@ -38,7 +38,6 @@ public class QuestionService {
     public Page<Question> findByParam(String param, PageRequest pageRequest) {
 //        return questionRepository.findByParamNameLike(param, pageRequest);
         return questionRepository.findBySubjectContaining(param, pageRequest);
-
     }
 
     public Question findById(Long questionId) {
@@ -55,7 +54,6 @@ public class QuestionService {
 
         Question question = findQuestion.get();
         question.update(updateFormData);
-
     }
 
     public void removeQuestion(Long questionId) {

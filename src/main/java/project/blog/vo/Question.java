@@ -1,8 +1,7 @@
 package project.blog.vo;
 
 import lombok.*;
-import project.blog.dto.UpdateFormData;
-import project.blog.dto.WriteFormData;
+import project.blog.dto.forquestion.UpdateFormData;
 
 import javax.persistence.*;
 

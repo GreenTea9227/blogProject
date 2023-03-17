@@ -3,7 +3,7 @@ package project.blog.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blog.dto.FormUser;
+import project.blog.dto.foruser.FormUser;
 import project.blog.repository.UserRepository;
 import project.blog.vo.Question;
 import project.blog.vo.User;
@@ -25,8 +25,7 @@ public class UserService {
         return user.getQuestions();
     }
 
-
-    public boolean checkUser(String nickname , String email) {
+    public boolean checkUser(String nickname, String email) {
         Optional<User> findNickname = userRepository.findByNickname(nickname);
         Optional<User> findByEmail = userRepository.findByEmail(email);
 
@@ -35,10 +34,10 @@ public class UserService {
 
     public void saveUser(FormUser formUser) {
         userRepository.save(User.builder()
-                        .password(formUser.getPassword())
-                        .username(formUser.getUsername())
-                        .email(formUser.getEmail())
-                        .nickname(formUser.getNickname())
+                .password(formUser.getPassword())
+                .username(formUser.getUsername())
+                .email(formUser.getEmail())
+                .nickname(formUser.getNickname())
                 .build());
     }
 }

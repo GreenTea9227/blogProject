@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.blog.dto.*;
+import project.blog.dto.forquestion.PrivateQuestionList;
+import project.blog.dto.forquestion.ReturnQuestionData;
+import project.blog.dto.forquestion.UpdateFormData;
+import project.blog.dto.foruser.FormUser;
 import project.blog.service.QuestionService;
 import project.blog.service.UserService;
 import project.blog.vo.Question;
@@ -35,20 +38,20 @@ public class PrivateOwnerController {
     }
 
     @GetMapping("/privateWrite/update/{questionId}")
-    public String privateUpdateGet(@PathVariable Long questionId,Model model) {
+    public String privateUpdateGet(@PathVariable Long questionId, Model model) {
         Question findQuestion = questionService.findById(questionId);
-        model.addAttribute("question",findQuestion);
+        model.addAttribute("question", findQuestion);
         return "private/privateUpdate";
     }
 
     @PostMapping("/privateWrite/update/{questionId}")
     public String privateUpdatePost(@Valid @ModelAttribute UpdateFormData updateFormData
-            , BindingResult bindingResult,@PathVariable Long questionId ,RedirectAttributes redirectAttributes) {
+            , BindingResult bindingResult, @PathVariable Long questionId, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "private/privateUpdate";
         }
-        questionService.update(questionId,updateFormData);
-        redirectAttributes.addAttribute("questionId",questionId);
+        questionService.update(questionId, updateFormData);
+        redirectAttributes.addAttribute("questionId", questionId);
         return "redirect:/privateWrite/update/{questionId}";
     }
 
@@ -61,18 +64,17 @@ public class PrivateOwnerController {
 
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("formUser",new FormUser());
+        model.addAttribute("formUser", new FormUser());
         return "private/join";
     }
 
     @PostMapping("/join")
-    public String postJoin(@Valid @ModelAttribute FormUser formUser,BindingResult bindingResult) {
+    public String postJoin(@Valid @ModelAttribute FormUser formUser, BindingResult bindingResult) {
         //TODO 아이디 중복 체크 / 닉네임 중복 체크
-
 
         boolean checkUser = userService.checkUser(formUser.getNickname(), formUser.getEmail());
         if (!checkUser) {
-            bindingResult.reject("idOrNickname","이메일 또는 닉네임이 중복입니다.");
+            bindingResult.reject("idOrNickname", "이메일 또는 닉네임이 중복입니다.");
         }
 
         if (bindingResult.hasErrors()) {
@@ -83,9 +85,5 @@ public class PrivateOwnerController {
 
         //TODO /login 구현
         return "redirect:/login";
-
     }
-
-
-
 }
