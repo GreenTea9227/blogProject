@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layout/head :: fragment-head}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout/head :: fragment-head}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-    <div th:replace="~{/layout/header :: fragment-navbar}"></div>
+<body style="background-image: url('/static/image/home.jpg')" class="bg-cover">
+    <div th:replace="~{layout/header :: fragment-navbar}"></div>
 
-
+    <div sec:authorize="isAuthenticated()">인증 완료</div>
+    <div sec:authorize="isAnonymous()">인증 아직 안됨</div>
 </body>
+출처 <a href="https://kr.freepik.com/free-psd/restaurant-website-colorful-template_21315118.htm#query=%EC%9B%B9%20%EB%94%94%EC%9E%90%EC%9D%B8&position=15&from_view=keyword&track=ais">Freepik</a>
 </html>

@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layout/head :: fragment-head}">
+<head th:replace="~{layout/head :: fragment-head}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div th:replace="~{/layout/header :: fragment-navbar}"></div>
+<div th:replace="~{layout/header :: fragment-navbar}"></div>
 
-<table class="table">
+<table class="border-separate table border w-full flex justify-between">
     <thead>
-    <tr>
-        <th scope="col">num</th>
-        <th scope="col">subject</th>
-        <th scope="col">username</th>
-        <th scope="col">content</th>
+    <tr class="my-2">
+        <th class="border mx-4">num</th>
+        <th class="border mx-4">subject</th>
+        <th class="border mx-4">username</th>
+        <th class="border mx-4">content</th>
     </tr>
 
     </thead>
     <tbody th:each="question , loop: ${data}">
-    <tr>
+    <tr class="my-2">
         <td th:text="${loop.index+1}"></td>
         <td th:text="${question.subject}"></td>
         <td th:text="${question.username}"></td>
         <td th:text="${question.content}"></td>
-        <td><a th:href="@{/privateWrite/update(questionId=${question.getId()})}" class="btn btn-primary">수정</a></td>
-        <td><a th:href="@{/privateWrite/delete(questionId=${question.getId()})}" class="btn btn-danger">제거</a></td>
-        <td><a th:value="${question.id}" class="btn btn-danger delete-question">제거</a></td>
+        <td><a th:href="@{/privateWrite/update(questionId=${question.getId()})}" class="border rounded border-black p-2 ml-10 hover:bg-black hover:text-white">수정</a></td>
+        <td><a th:href="@{/privateWrite/delete(questionId=${question.getId()})}" class="border rounded border-black p-2 mx-1 text-yellow-700 hover:bg-red-600 hover:text-red-100 ">제거</a></td>
+        <td><a th:value="${question.id}" class="border rounded border-black p-2 mx-1">제거</a></td>
     </tr>
 
 

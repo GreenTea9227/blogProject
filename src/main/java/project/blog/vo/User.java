@@ -22,15 +22,19 @@ public class User extends BaseTime {
     private String email;
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, String email, String nickname) {
+    public User(String username, String password, String email, String nickname,UserRole role) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        this.role =role;
     }
 
     public void addQuestion(Question question) {

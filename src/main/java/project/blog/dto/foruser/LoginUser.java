@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class LoginUser {
 
     @NotBlank(message = "빈 값일 수 없습니다. 제대로 입력하세요")
-    private String email;
+    private String username;
 
     @NotBlank(message = "빈 값일 수 없습니다. 제대로 입력하세요")
     private String password;
