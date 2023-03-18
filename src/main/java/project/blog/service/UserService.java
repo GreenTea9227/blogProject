@@ -1,12 +1,14 @@
 package project.blog.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blog.dto.foruser.FormUser;
 import project.blog.repository.UserRepository;
 import project.blog.vo.Question;
 import project.blog.vo.User;
+import project.blog.vo.UserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
@@ -34,10 +37,11 @@ public class UserService {
 
     public void saveUser(FormUser formUser) {
         userRepository.save(User.builder()
-                .password(formUser.getPassword())
+                .password(passwordEncoder.encode(formUser.getPassword()))
                 .username(formUser.getUsername())
                 .email(formUser.getEmail())
                 .nickname(formUser.getNickname())
+                .role(UserRole.USER)
                 .build());
     }
 }

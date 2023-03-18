@@ -25,6 +25,7 @@ public class Question extends BaseTime {
     private User user;
 
     public void addUser(User user) {
+        user.getQuestions().add(this);
         this.user = user;
     }
 

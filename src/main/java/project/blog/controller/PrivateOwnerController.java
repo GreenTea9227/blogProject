@@ -58,7 +58,7 @@ public class PrivateOwnerController {
     @PostMapping("/privateWrite/delete/{questionId}")
     public String privateDelete(@PathVariable Long questionId) {
         questionService.removeQuestion(questionId);
-        //TODO - userid세션에 저장하기
+
         return "redirect:/privateWrite/{userId}";
     }
 
@@ -70,7 +70,7 @@ public class PrivateOwnerController {
 
     @PostMapping("/join")
     public String postJoin(@Valid @ModelAttribute FormUser formUser, BindingResult bindingResult) {
-        //TODO 아이디 중복 체크 / 닉네임 중복 체크
+
 
         boolean checkUser = userService.checkUser(formUser.getNickname(), formUser.getEmail());
         if (!checkUser) {
@@ -83,7 +83,6 @@ public class PrivateOwnerController {
 
         userService.saveUser(formUser);
 
-        //TODO /login 구현
         return "redirect:/login";
     }
 }

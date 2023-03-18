@@ -12,13 +12,13 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login/user")
+    @GetMapping("/login")
     public String loginGet(Model model) {
         model.addAttribute("loginUser", new LoginUser());
         return "login";
     }
 
-    @PostMapping("/login/user")
+    @PostMapping("/login")
     public String loginPost(@Valid LoginUser loginUser, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
