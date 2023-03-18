@@ -2,10 +2,14 @@ package project.blog.repository;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import project.blog.service.QuestionService;
+import project.blog.service.UserService;
+import project.blog.vo.Question;
 import project.blog.vo.User;
 
 import java.time.LocalDateTime;
@@ -20,31 +24,52 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @BeforeEach
-    void prevSaveUser() {
-        for (int i = 1; i < 50; i++) {
-            User user = User.builder()
-                    .email(i + "hello@naver.com")
-                    .password("1111")
-                    .username("yohan_" + i)
-                    .nickname("greenTea_" + i).build();
-            userRepository.save(user);
-        }
+    @Autowired
+    private QuestionRepository questionRepository;
+
+
+
+    @Test
+    @DisplayName("user 저장")
+    void saveOne() {
+        User user = User.builder()
+                .email("hello@naver.com")
+                .password("1111")
+                .username("yohan")
+                .nickname("greenTea").build();
+        userRepository.save(user);
+
+        Optional<User> findUser = userRepository.findById(user.getId());
+
+        assertThat(user.getEmail()).isEqualTo("hello@naver.com");
+        assertThat(user.getUsername()).isEqualTo("yohan");
+        assertThat(user.getNickname()).isEqualTo("greenTea");
     }
 
     @Test
-    void findOne() {
+    @DisplayName("user 삭제")
+    void deleteOne() {
+        //given
+        User user = User.builder()
+                .email("hello@naver.com")
+                .password("1111")
+                .username("yohan")
+                .nickname("greenTea").build();
+        userRepository.save(user);
 
-        Optional<User> findUser = userRepository.findById(1L);
-        User user = findUser.orElseThrow(() -> {
-            throw new RuntimeException("No");
-        });
-        assertThat(user.getEmail()).isEqualTo("1hello@naver.com");
-        assertThat(user.getPassword()).isEqualTo("1111");
-        assertThat(user.getUsername()).isEqualTo("yohan_1");
+        Long userId = user.getId();
+        Optional<User> findUser = userRepository.findById(userId);
+
+        //when
+        userRepository.deleteById(userId);
+
+        //then
+        Optional<User> byId = userRepository.findById(userId);
+        assertThat(byId).isEmpty();
     }
 
     @Test
+    @DisplayName("생성날짜 테스트")
     void userDateTest() {
         User save = userRepository.save(User.builder().build());
         LocalDateTime now = LocalDateTime.now();
@@ -53,5 +78,80 @@ class UserRepositoryTest {
 
         User user = findUser.orElseGet(User::new);
         assertThat(user.getCreatedDate()).isBefore(now);
+    }
+
+    @Test
+    @DisplayName("nickname으로 user 찾아오기")
+    public void findByNickname() {
+        //given
+        User user = User.builder()
+                .email("hello@naver.com")
+                .password("1111")
+                .username("yohan_")
+                .nickname("greenTea_").build();
+        userRepository.save(user);
+
+        //when
+        Optional<User> byNickname = userRepository.findByNickname(user.getNickname());
+
+        //then
+        assertThat(byNickname).isNotEmpty();
+        assertThat(byNickname.get()).isEqualTo(user);
+    }
+
+    @Test
+    @DisplayName("emnail로 user 찾아오기")
+    public void findByEmail() {
+        //given
+        User user = User.builder()
+                .email("hello@naver.com")
+                .password("1111")
+                .username("yohan_")
+                .nickname("greenTea_").build();
+        userRepository.save(user);
+
+        //when
+        Optional<User> byNickname = userRepository.findByEmail(user.getEmail());
+
+        //then
+        assertThat(byNickname).isNotEmpty();
+        assertThat(byNickname.get()).isEqualTo(user);
+    }
+
+    @Test
+    @DisplayName("questions 컬렉션 패치 테스트")
+    void userDeleteCascade() {
+        //given
+        User user = User.builder()
+                .email("hello@naver.com")
+                .password("1111")
+                .username("yohan_")
+                .nickname("greenTea_").build();
+        userRepository.save(user);
+
+        Question question = Question.builder()
+                .content("안녕하세요")
+                .subject("가입인사")
+                .username("yohan").build();
+        question.addUser(user);
+        questionRepository.save(question);
+
+        Question question1 = Question.builder()
+                .content("안녕하세요")
+                .subject("가입인사")
+                .username("yohan").build();
+        question1.addUser(user);
+        questionRepository.save(question1);
+
+        //when
+        Long userId = user.getId();
+        Long questionId = question.getId();
+
+        User questionsWithId = userRepository.findQuestionsWithId(userId);
+
+        //then
+        assertThat(questionsWithId).isEqualTo(user);
+        assertThat(questionsWithId.getQuestions()).containsExactly(question,question1);
+
     }
 }
